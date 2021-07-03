@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:chuck_norris/src/about/about.widget.dart';
 import 'package:chuck_norris/src/home/components/option.widget.dart';
+import 'package:chuck_norris/src/home/home.viewmodel.dart';
 import 'package:chuck_norris/src/search/search.delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
+  final HomeViewModel homeViewModel = Get.find();
   final RxInt index = 0.obs;
   AnimationController? _animationController;
   late AnimationController _animationScaleController;
@@ -126,6 +128,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
       scale: _animation as Animation<double>,
       child: GestureDetector(
         onTap: () {
+          homeViewModel.toggleTheme();
           _animationScaleController.reset();
           _animationScaleController
               .forward()

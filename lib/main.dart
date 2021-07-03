@@ -1,17 +1,25 @@
 import 'package:chuck_norris/src/AppBindings.dart';
 import 'package:chuck_norris/src/routes.dart';
+import 'package:chuck_norris/src/shared/services/AppConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() => runApp(ChuckNorrisApp());
+void main() async {
+  Get.lazyPut(() => AppConfig(), fenix: true);
+  await AppConfig.init();
+  runApp(ChuckNorrisApp());
+}
 
 class ChuckNorrisApp extends StatelessWidget {
+
+  final AppConfig appConfig = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Chuck norris',
       defaultTransition: Transition.topLevel,
-      themeMode: ThemeMode.system,
+      themeMode: appConfig.getTheme(),
       darkTheme: ThemeData.dark().copyWith(accentColor: Colors.orange[900]),
       initialBinding: ChuckNorrisBindings(),
       theme: ThemeData(

@@ -9,7 +9,7 @@ class CustomShared {
     Directory temp = await getTemporaryDirectory();
     ByteData bytes = await rootBundle.load(path);
 
-    File file = new File('${temp.path}/chuck-norris.jpg');
+    File file = File('${temp.path}/chuck-norris.jpg');
     bool exist = await file.exists();
     if (!exist) {
       File newFile = await file.create();
