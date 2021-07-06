@@ -1,8 +1,11 @@
+import 'package:chuck_norris/src/about/about.viewmodel.dart';
+import 'package:chuck_norris/src/shared/services/Linking.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AboutWidget extends StatelessWidget {
   final Function? onPress;
+  final AboutViewModel _aboutViewModel = AboutViewModel(linkingService: Linking());
 
   AboutWidget({this.onPress});
 
@@ -49,10 +52,13 @@ class AboutWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               Spacer(),
-              Text(
-                'https://api.chucknorris.io/',
-                style: TextStyle(
-                    fontSize: 20, decoration: TextDecoration.underline),
+              TextButton(
+                onPressed: handlerTapLink,
+                child: Text(
+                  'https://api.chucknorris.io/',
+                  style: TextStyle(
+                      fontSize: 20, decoration: TextDecoration.underline),
+                ),
               )
             ],
           ),
@@ -60,4 +66,13 @@ class AboutWidget extends StatelessWidget {
       ),
     );
   }
+
+  Future handlerTapLink() async {
+    try {
+      _aboutViewModel.openLink();
+    } catch (e) {
+      Get.snackbar('Atenção', 'Houve uma falha ao abrir o link');
+    }
+  }
+
 }

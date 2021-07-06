@@ -19,8 +19,8 @@ class AppConfig {
   }
 
   ThemeMode getTheme() {
-    String theme = storage.read(THEME_KEY);
-    if (theme.isEmpty) {
+    String? theme = storage.read(THEME_KEY);
+    if (theme == null || theme.isEmpty) {
       return ThemeMode.system;
     }
     return theme == ThemeMode.dark.toString() ? ThemeMode.dark : ThemeMode.light;
